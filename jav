@@ -1,112 +1,254 @@
-import java.util. Random;
-import java.util.Scanner;
-public class MainClass {
-    public static int SIZE = 3;
-    public static int DOTS_TO_WIN = 3;
-    public static final char DOT_EMPTY = '•';
-    public static final char DoT_X = 'X';
-    public static final char DOT_0 = '0';
-    public static char[][] map;
-    public static Scanner sc = new Scanner (System.in) ;
-    public static Random rand = new Random () ;
-    public static void main (String[] args) {
-    initMap ();
-    printMap () ;
-while (true){
-    humanTurn () ;
-    printMap () ;
-            if (checkWin（DOT_X)){
-        System.out.println ("Победил человек");
-        break;
+package org.example;
+
+abstract class Animalss {
+
+    public Animalss(String name, int age) {
     }
-if （isMapFull()){
-        System.out.printin("Ничья");
-        break;
+
+    public void speak() {
+
     }
-    aiTurn ();
-   printMap () ;
-   if (checkWin (DOT_O)) {
-       System.out.println("Победил Искуственный Интеллект");
-       break;
-   }
-if  (isMapFull ()) {
-    System.out.println("Ничья");
-    break;
+
+    public abstract void run(int distance);
+
+    public abstract void swim(int distance);
 }
-}
-System. out.println ("Игра закончена");
+
+class Animal1 {
+    private String name;
+    private int age;
+
+    public Animal1(String name, int age) {
+        this.name = name;
+        this.age = age;
     }
-    public static boolean checkWin (char symb) {
-        if (map[0][0] == symb && map[0][1] == symb && map[0][2] == symb) return
-                true;
-        if (map[1][0] == symb && map[1][1] == symb && map[1][2] == symb) return
-                true;
-        if (map[2][0] == symb && map[2][1] == symb && map[2][2] == symb) return
-                true;
-        if (map[0][0] == symb && map[1][0] == symb && map[2][0] == symb) return
-                true;
-        if (map[0][1] == symb && map[1][1] == symb && map[2][1] == symb) return
-                true;
-        if (map[0][2] == symb && map[1][2] == symb && map[2][2] == symb) return
-                true;
-        if (map[0][0] == symb && map[1][1] == symb && map[2][2] == symb) return
-                true;
-        if (map[2][0] == symb && map[1][1] == symb && map[0][2] == symb) return
-                true;
-        return false;
-        public static boolean isMapFull () {
-            for (int i = 0; i < SIZE; i++) {
-                for（int j = 0;
-                j < SIZE;
-                j++） ｛
-                if （map[i] ［j］ ==DOT_EMPTY）return false;
-            }
+
+    public void speak() {
+        // Default implementation for speaking
+    }
+
+    public void run(int distance) {
+        System.out.println(name + " Бежал " + distance + " В.");
+    }
+
+    public void swim(int distance) {
+        System.out.println(name + " Бежал " + distance + " В.");
+    }
+}
+
+class Dogss extends Animal {
+    @Override
+    public void run(int distance) {
+
+    }
+
+    @Override
+    public void swim(int distance) {
+
+    }
+
+    public Dogss(String name, int age) {
+        super(name, age);
+    }
+
+    @Override
+    public void speak() {
+        System.out.println("Wooff!");
+    }
+}
+
+abstract class Cat extends Animal {
+    public Cat(String name, int age) {
+        super(name, age);
+    }
+
+    @Override
+    public void speak() {
+        System.out.println("May!");
+    }
+}
+class Animals {
+    private String name;
+    private int age;
+
+    public Animals(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public void speak() {
+        // Default implementation for speaking
+    }
+
+    public void run(int distance) {
+        System.out.println(name + " Пробежал " + distance + " В.");
+    }
+
+    public void swim(int distance) {
+        System.out.println(name + " Проплыл " + distance + " В.");
+    }
+}
+
+class Dogs extends Animal {
+    private static final int MAX_RUN_DISTANCE = 500;
+    private static final int MAX_SWIM_DISTANCE = 10;
+
+    public Dogs(String name, int age) {
+        super(name, age);
+    }
+
+    @Override
+    public void speak() {
+        System.out.println("Woof!");
+    }
+
+    @Override
+    public void run(int distance) {
+        char name = 0;
+        if (distance <= MAX_RUN_DISTANCE) {
+            System.out.println(name + " Пробежал " + distance + " В.");
+        } else {
+            System.out.println(name + " Не может пробежать такое расстояние.");
         }
-        return true;
     }
-            public static void aiTurn () {
-                int x, y;
-                do{
-                x= rand. nextInt (SIZE) ;
-                y = rand.nextInt (SIZE) ;
-            } while (! isCellValid(x, y)) ;
-            System. out println ("Компьютер походил в точку " + (x + 1) + " " + (y + 1));
-                    map [y] [x] = DOT_0;
-            public static void humanTurn() {
-                int x, y;
-                do {
-                    System. out println ("Введите координаты в формате X Y") ;
-                    x= sc.nextInt () - 1;
-                    y = sc.nextInt () - 1;
-                } while (!isCellValid(x, y)); // while(isCellValid(x, y) == false)
-                map [y] [x] = DOT_X;
-                public static boolean isCellValid(int x, int y) {
-                    if (x < 0 || x >= SIZE|| Y < 0 || Y >= SIZE) return false;
-                    if (map [y] [x] == DOT_EMPTY) return true;
-                    return false;
-                    public static void initMap () {
-                            map = new char [SIZE] [SIZE];
-                    for (int i = 0; i < SIZE; i++) {
-                        for (int j=0; j<SIZE;j++ ) {
-                        map [i][j] = DOT_EMPTY;
-                    }
-                        }
-                        public static void printMap () {
-                            for (int i = 0; i <= SIZE; i++) {
-                                System.out.print(i + " ");
-                            }
-                                System. out. println ();
-                                for (int i = 0; i ‹ SIZE; i++) {
-                                    System. out.print ((i + 1) + " ");
-                                    for (int j = 0; j < SIZE; j++） ｛
-                                    System. out.print (map[i][j] + "");
-                                    System. out. println();
-                                    System.out.println ();
-                                }
-                            }
-                        }
-                    }
-                        }
-                    }
-                }
-            
+
+    @Override
+    public void swim(int distance) {
+        boolean name = false;
+        if (distance <= MAX_SWIM_DISTANCE) {
+            System.out.println(name + " Проплыл " + distance + " В.");
+        } else {
+            System.out.println(name + " Не может проплыть такое расстояние.");
+        }
+    }
+}
+
+class Cats extends Animal {
+    private static final int MAX_RUN_DISTANCE = 200;
+
+    public Cats(String name, int age) {
+        super(name, age);
+    }
+
+    @Override
+    public void speak() {
+        System.out.println("Meow!");
+    }
+
+    @Override
+    public void run(int distance) {
+        boolean name = false;
+        if (distance <= MAX_RUN_DISTANCE) {
+            System.out.println(name + " Пробежал " + distance + " В.");
+        } else {
+            System.out.println(name + " Не может пробежать такое расстояние.");
+        }
+    }
+
+    @Override
+    public void swim(int distance) {
+        char name = 0;
+        System.out.println(name + " Не умеет плавать.");
+    }
+}
+class Animal {
+    private static int animalCount = 0;
+    private String name;
+    private int age;
+
+    public Animal(String name, int age) {
+        this.name = name;
+        this.age = age;
+        animalCount++;
+    }
+
+    public static int getAnimalCount() {
+        return animalCount;
+    }
+
+    public void speak() {
+        // Default implementation for speaking
+    }
+
+    public void run(int distance) {
+        System.out.println(name + " Пробежал " + distance + " В.");
+    }
+
+    public void swim(int distance) {
+        System.out.println(name + " Проплыл " + distance + " В.");
+    }
+}
+
+class Dog extends Animal {
+    private static int dogCount = 0;
+    private static final int MAX_RUN_DISTANCE = 500;
+    private static final int MAX_SWIM_DISTANCE = 10;
+
+    public Dog(String name, int age) {
+        super(name, age);
+        dogCount++;
+    }
+
+    public static int getDogCount() {
+        return dogCount;
+    }
+
+    @Override
+    public void speak() {
+        System.out.println("Woof!");
+    }
+
+    @Override
+    public void run(int distance) {
+        boolean name = false;
+        if (distance <= MAX_RUN_DISTANCE) {
+            System.out.println(name + " Пробежал " + distance + " В.");
+        } else {
+            System.out.println(name + " Не может пробежать большое расстояние.");
+        }
+    }
+
+    @Override
+    public void swim(int distance) {
+        boolean name = false;
+        if (distance <= MAX_SWIM_DISTANCE) {
+            System.out.println(name + " Проплыл " + distance + " В.");
+        } else {
+            System.out.println(name + " Не может много плыть .");
+        }
+    }
+}
+
+class Cattt extends Animal {
+    private static int catCount = 0;
+    private static final int MAX_RUN_DISTANCE = 200;
+    private boolean name;
+
+    public Cattt(String name, int age) {
+        super(name, age);
+        catCount++;
+    }
+
+    public static int getCatCount() {
+        return catCount;
+    }
+
+    @Override
+    public void speak() {
+        System.out.println("Mayy!");
+    }
+
+    @Override
+    public void run(int distance) {
+        if (distance <= MAX_RUN_DISTANCE) {
+            System.out.println(name + " Пробежал " + distance + " В.");
+        } else {
+            System.out.println(name + " Не может много пробежать.");
+        }
+    }
+
+    @Override
+    public void swim(int distance) {
+        System.out.println(name + " Не плавает.");
+    }
+}
